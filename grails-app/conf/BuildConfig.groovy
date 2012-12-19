@@ -6,47 +6,75 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-grails.project.dependency.resolution = {
-    // inherit Grails' default dependencies
-    inherits("global") {
-        // uncomment to disable ehcache
-        // excludes 'ehcache'
-    }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
-    checksums true // Whether to verify checksums on resolve
-
-    repositories {
-        inherits true // Whether to inherit repository definitions from plugins
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
-        mavenCentral()
-
-        // uncomment these to enable remote dependency resolution from public Maven repositories
-        //mavenCentral()
-        //mavenLocal()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
-    }
-    dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.16'
-    }
-
-    plugins {
-        runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.7.1"
-        runtime ":resources:1.1.6"
-
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0"
-        //runtime ":cached-resources:1.0"
-        //runtime ":yui-minify-resources:0.1.4"
-
-        build ":tomcat:$grailsVersion"
-        provided ":frontlinesms-core:2.0-SNAPSHOT"
-    }
+environments {
+	test {
+		grails.server.port.http=8081
+	}
 }
+
+grails.project.dependency.resolution = {
+	def gebVersion = '0.7.2'
+
+	// inherit Grails' default dependencies
+	inherits("global") {
+		// uncomment to disable ehcache
+		// excludes 'ehcache'
+	}
+	log "trace" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+	checksums true // Whether to verify checksums on resolve
+
+	repositories {
+		inherits true // Whether to inherit repository definitions from plugins
+
+		grailsHome()
+		grailsPlugins()
+
+		mavenLocal()
+		mavenRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
+		grailsRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
+		mavenRepo 'http://dev.frontlinesms.com/m2repo/'
+		mavenCentral()
+
+		grailsCentral()
+
+		// uncomment these to enable remote dependency resolution from public Maven repositories
+		//mavenCentral()
+		//mavenRepo "http://snapshots.repository.codehaus.org"
+		//mavenRepo "http://repository.codehaus.org"
+		//mavenRepo "http://download.java.net/maven/2/"
+		//mavenRepo "http://repository.jboss.com/maven2/"
+	}
+
+	dependencies {}
+
+	plugins {
+        compile ":frontlinesms-core:2.0-SNAPSHOT"
+
+		// Uncomment these (or add new ones) to enable additional resources capabilities
+		//runtime ":zipped-resources:1.0"
+		//runtime ":cached-resources:1.0"
+		//runtime ":yui-minify-resources:0.1.4"
+
+		build(":tomcat:$grailsVersion") {
+			export = false
+		}
+	}
+}
+
+coverage {
+}
+
+codenarc {
+	reportName = 'target/analysis-reports/codenarc.xml'
+	reportType = 'xml'
+	systemExitOnBuildException = false
+	// NB these numbers should be LOWERED over time as code quality should be INCREASING
+	maxPriority1Violations = 0
+	maxPriority2Violations = 250
+	maxPriority3Violations = 500
+
+	properties = {
+		GrailsPublicControllerMethod.enabled = false
+	}
+}
+
