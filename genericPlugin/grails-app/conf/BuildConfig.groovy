@@ -79,6 +79,7 @@ grails.project.dependency.resolution = {
 	
 	plugins {
         compile ":frontlinesms-core:2.0-SNAPSHOT"
+        compile ":hibernate:$grailsVersion"
         runtime ":database-migration:1.0"
 		runtime ":jquery:1.7.1"
 		runtime ':jquery-ui:1.8.15'
