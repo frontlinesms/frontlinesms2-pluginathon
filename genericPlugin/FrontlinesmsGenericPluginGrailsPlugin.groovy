@@ -1,4 +1,4 @@
-class KetchupGrailsPlugin {
+class FrontlinesmsGenericPluginGrailsPlugin {
     // the plugin version
     def version = "0.1"
     // the version or versions of Grails the plugin is designed for
@@ -11,8 +11,8 @@ class KetchupGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def title = "Ketchup Plugin" // Headline display name of the plugin
-    def author = "Sitati"
+    def title = "Generic Plugin" // Headline display name of the plugin
+    def author = "FrontlineSMS"
     def authorEmail = ""
     def description = '''\
 Brief summary/description of the plugin.
