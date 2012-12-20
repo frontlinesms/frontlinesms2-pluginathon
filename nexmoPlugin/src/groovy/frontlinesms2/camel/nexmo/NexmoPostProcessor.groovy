@@ -8,7 +8,7 @@ class NexmoPostProcessor implements Processor {
 	public void process(Exchange exchange) throws Exception {
 		def log = { println "NexmoPostProcessor.process() : $it" }
 		log 'ENTRY'
-		
+		log exchange
 		log 'EXIT'
 	}
 }

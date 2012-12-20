@@ -17,6 +17,8 @@ class NexmoFconnection extends Fconnection {
 	String api_secret
 	String fromNumber
 	
+	static passwords = []
+	
 	static constraints = {
 		api_key blank:false
 		api_secret blank:false
