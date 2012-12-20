@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+EXPECTED_GRAILS_VERSION="2.0.3"
+PLUGIN_NAME=$1
+
+if [ -z "$PLUGIN_NAME" ]; then
+	echo "You must supply a name for your plugin."
+	exit 1
+fi
+
+echo "# Creating FrontlineSMS Plugin with name: $PLUGIN_NAME..."
+
+if [ -d "$PLUGIN_NAME" ]; then
+	echo "# Cannot create plugin as directory already exists."
+	exit 1
+fi
+
+ACTUAL_GRAILS_VERSION=`grails -version | grep -E -o "[0-9]+(\.[0-9]+)*"`
+if [ "$EXPECTED_GRAILS_VERSION" != "$ACTUAL_GRAILS_VERSION" ]; then
+	echo "# Your grails version ($ACTUAL_GRAILS_VERSION) did not match required grails version ($EXPECTED_GRAILS_VERSION)"
+	exit 1
+fi
+
+grails create-app $PLUGIN_NAME
+cd $PLUGIN_NAME
+
+echo "# TODO inject required dependencies..."
+
+echo "# TODO create plugin groovy file..."
+
+cat << EOF
+	Your FrontlineSMS2 Plugin $PLUGIN_NAME has been created.
+	To package the plugin:
+		$ grails package-plugin
+EOF
+
