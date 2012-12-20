@@ -45,15 +45,64 @@ grails.project.dependency.resolution = {
 		//mavenRepo "http://repository.jboss.com/maven2/"
 	}
 
-	dependencies {}
+	dependencies {
+		// specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
+		// runtime 'mysql:mysql-connector-java:5.1.16'
+		def seleniumVersion = '2.28.0'
+		def camel = {
+			def camelVersion = "2.9.4"
+			"org.apache.camel:camel-$it:$camelVersion"
+		}
+
+		// TEST
+		test camel('test')
+		test "org.codehaus.geb:geb-spock:$gebVersion"
+		test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+		test "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+		test "org.seleniumhq.selenium:selenium-remote-driver:$seleniumVersion"
+
+		// TODO this should be included in compile for TEST and DEV scopes, and excluded for PRODUCTION
+		compile 'net.frontlinesms.test:hayescommandset-test:0.0.4'
+
+		// COMPILE
+		//compile 'net.frontlinesms.core:smslib:1.1.4'
+		compile('net.frontlinesms.core:camel-smslib:0.0.7') {
+			//excludes 'smslib'
+		}
+		['mail', 'http'].each { compile camel(it) }
+		compile 'net.frontlinesms.core:serial:1.0.1'
+		compile 'net.frontlinesms.core:at-modem-detector:0.8'
+		runtime 'org.rxtx:rxtx:2.1.7'
+		runtime 'javax.comm:comm:2.0.3'
+	}
+	
 	plugins {
         compile ":frontlinesms-core:2.0-SNAPSHOT"
+        compile ":hibernate:$grailsVersion"
+        runtime ":database-migration:1.0"
+		runtime ":jquery:1.7.1"
+		runtime ':jquery-ui:1.8.15'
+		runtime ':resources:1.2.RC3'
 
-		// Uncomment these (or add new ones) to enable additional resources capabilities
-		//runtime ":zipped-resources:1.0"
-		//runtime ":cached-resources:1.0"
-		//runtime ":yui-minify-resources:0.1.4"
+		runtime ":export:1.1"
+		runtime ":markdown:1.0.0.RC1"
+		runtime ':routing:1.2.2-camel-2.9.4'
+		runtime ":csv:0.3.1"
+		compile ":quartz2:0.2.3-frontlinesms"
+
+		compile ':platform-core:1.0.RC2'
+
+		test ":code-coverage:1.2.5"
+		test ":codenarc:0.17"
+		test ":spock:0.6"
+		test ":geb:$gebVersion"
+
+		test ':build-test-data:2.0.2'
+		test ':remote-control:1.2'
+		compile(':functional-test-development:0.9.3') {
+			exclude 'hibernate'
+		}
 
 		build(":tomcat:$grailsVersion") {
 			export = false
