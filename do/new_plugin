@@ -26,7 +26,7 @@ cd $PLUGIN_NAME
 
 echo "# inject required dependencies..."
 DEPENDENCIES="provided ':frontlinesms-core:2.0-SNAPSHOT'"
-sed -E -i -e "s/(^\s*plugins\s*\{\s*$)/\1\n\t\t$DEPENDENCIES/" grails-app/conf/BuildConfig.groovy
+sed -E -i -e "s_(^\s*mavenCentral\(\)\s*)\$_\1\n\t\tmavenRepo 'http://dev.frontlinesms.com/m2repo/'_" -e "s/(^\s*plugins\s*\{\s*$)/\1\n\t\t$DEPENDENCIES/" grails-app/conf/BuildConfig.groovy
 
 PLUGIN_NAME_CAPITALISED_CAMEL=`echo $PLUGIN_NAME | sed -r "s/[-\.](\w)/\U\1/g" | sed -r "s/(^|\s)(\w)/\1\U\2\E/g"`
 PLUGIN_CLASS_NAME="${PLUGIN_NAME_CAPITALISED_CAMEL}GrailsPlugin"
@@ -35,6 +35,7 @@ echo "# creating plugin groovy file $GRAILS_PLUGIN_FILE..."
 echo "class $PLUGIN_CLASS_NAME {
 	def version = '0.1-SNAPSHOT'
 	def grailsVersion = '2.0 > *'
+	def packaging = 'binary'
 	def dependsOn = [:]
 	def pluginExcludes = [
 		'grails-app/views/error.gsp'
@@ -43,8 +44,10 @@ echo "class $PLUGIN_CLASS_NAME {
 " >> $GRAILS_PLUGIN_FILE
 
 cat << EOF
-	Your FrontlineSMS2 Plugin $PLUGIN_NAME has been created.
-	To package the plugin:
-		$ grails package-plugin
+# -----
+# Your FrontlineSMS2 Plugin $PLUGIN_NAME has been created.
+# To package the plugin:
+	cd $PLUGIN_NAME
+	grails package-plugin
 EOF
 
