@@ -10,6 +10,7 @@ import frontlinesms2.camel.exception.*
 class PhoneNetworkSimulatorFconnection {
 	static final configFields = ['pnsBaseUrl', 'phoneNumber']
 	static final defaultValues = []
+	static passwords = []
 	static String getShortName() { 'pns' }
 	
 	String pnsBaseUrl
