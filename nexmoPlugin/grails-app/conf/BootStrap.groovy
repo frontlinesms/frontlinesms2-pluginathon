@@ -10,7 +10,7 @@ class BootStrap {
             else
                 return oldImplementations
         }
-        new NexmoFconnection(name:'FrontlineNEXMOOOOO', api_key:'00d5dea9', api_secret:'0bf8f7e8', fromNumber:"123456789").save(failOnError:true)
+        new NexmoFconnection(name:'FrontlineNEXMOOOOO', api_key:'00d5dea9', api_secret:'0bf8f7e8', fromNumber:"FrontlineSMS").save(failOnError:true)
     }
 
     def destroy = {

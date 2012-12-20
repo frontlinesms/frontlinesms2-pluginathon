@@ -6,8 +6,10 @@ import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.model.RouteDefinition
 import frontlinesms2.camel.exception.*
+import frontlinesms2.api.*
 
-class NexmoFconnection extends Fconnection {
+@FrontlineApiAnnotations(apiUrl="nexmo")
+class NexmoFconnection extends Fconnection implements FrontlineApi {
 	private static final String NEXMO_URL = 'http://rest.nexmo.com/sms/json?'
 	static final configFields = [name:null, api_key:null, api_secret:null, fromNumber:null]
 	static final defaultValues = []
@@ -16,13 +18,27 @@ class NexmoFconnection extends Fconnection {
 	String api_key
 	String api_secret
 	String fromNumber
-	
+
 	static passwords = []
 	
 	static constraints = {
 		api_key blank:false
 		api_secret blank:false
 		fromNumber blank:false
+	}
+
+	def nexmoService
+
+	def apiProcess(controller) {
+		nexmoService.apiProcess(this, controller)
+	}
+	
+	String getSecret(){ return "" } // No Secret for Nexmo
+
+	boolean isApiEnabled() { true }
+
+	String getFullApiUrl() {
+		return apiEnabled? "http://[your-ip-address]:${appSettingsService.serverPort}/frontlinesms-core/api/1/$apiUrl/$id/" : ""
 	}
 	
 	List<RouteDefinition> getRouteDefinitions() {
