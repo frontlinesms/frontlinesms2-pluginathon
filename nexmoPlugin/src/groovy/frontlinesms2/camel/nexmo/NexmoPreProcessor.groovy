@@ -24,7 +24,7 @@ class NexmoPreProcessor implements Processor {
 		log "connectionId=$connectionId"
 		def connection = NexmoFconnection.get(connectionId)
 		log "connection=$connection"
-		['api_key', 'api_secret', 'from'].each { set x, it, connection."$it" }
+		['api_key', 'api_secret', 'fromNumber'].each { set x, it, connection."$it" }
 
 		log 'EXIT'
 	}
