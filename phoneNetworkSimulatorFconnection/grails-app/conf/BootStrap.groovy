@@ -12,6 +12,8 @@ class BootStrap {
 			println "AVAILABLE FCONNECTIONS: ${oldImplementations}}"
 			return oldImplementations
 		}
+
+		new PhoneNetworkSimulatorFconnection(name:"My PNS", pnsBaseUrl:'http://localhost:8888/PhoneNetworkSimulator', phoneNumber:'000').save(failOnError:true, flush:true)
 	}
 
 	def destroy = {
