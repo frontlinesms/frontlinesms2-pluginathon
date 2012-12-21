@@ -22,19 +22,19 @@
   </repositories>
   <dependencies>
     <test>
-      <dependency group='org.codehaus.geb' name='geb-spock' version='0.7.2' />
       <dependency group='org.apache.camel' name='camel-test' version='2.9.4' />
       <dependency group='org.seleniumhq.selenium' name='selenium-firefox-driver' version='2.28.0' />
       <dependency group='org.seleniumhq.selenium' name='selenium-support' version='2.28.0' />
+      <dependency group='org.codehaus.geb' name='geb-spock' version='0.7.2' />
       <dependency group='org.seleniumhq.selenium' name='selenium-remote-driver' version='2.28.0' />
     </test>
     <compile>
-      <dependency group='org.apache.camel' name='camel-http' version='2.9.4' />
       <dependency group='net.frontlinesms.core' name='serial' version='1.0.1' />
-      <dependency group='net.frontlinesms.core' name='camel-smslib' version='0.0.7' />
+      <dependency group='org.apache.camel' name='camel-mail' version='2.9.4' />
       <dependency group='net.frontlinesms.core' name='at-modem-detector' version='0.8' />
       <dependency group='net.frontlinesms.test' name='hayescommandset-test' version='0.0.4' />
-      <dependency group='org.apache.camel' name='camel-mail' version='2.9.4' />
+      <dependency group='net.frontlinesms.core' name='camel-smslib' version='0.0.7' />
+      <dependency group='org.apache.camel' name='camel-http' version='2.9.4' />
     </compile>
     <runtime>
       <dependency group='org.rxtx' name='rxtx' version='2.1.7' />
