@@ -41,12 +41,9 @@ class PhoneNetworkSimulatorFconnection extends Fconnection implements FrontlineA
 			@Override void configure() {}
 			List getRouteDefinitions() {
 				return [from("seda:out-${PhoneNetworkSimulatorFconnection.this.id}")
-						.onException(Exception)
-							.handled(false)
-							.end()
 						.setHeader(Fconnection.HEADER_FCONNECTION_ID, simple(PhoneNetworkSimulatorFconnection.this.id.toString()))
 						.process(new PNSPreProcessor())
-						.to(PhoneNetworkSimulatorFconnection.this.pnsBaseUrl + "/modem/${PhoneNetworkSimulatorFconnection.this.phoneNumber}/send/")
+							.to(PhoneNetworkSimulatorFconnection.this.pnsBaseUrl + "/modem/${PhoneNetworkSimulatorFconnection.this.phoneNumber}/send/")
 						.process(new PNSPostProcessor())
 						.routeId("out-internet-${PhoneNetworkSimulatorFconnection.this.id}")]
 			}

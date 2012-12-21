@@ -13,7 +13,7 @@ class BootStrap {
 			return oldImplementations
 		}
 
-		new PhoneNetworkSimulatorFconnection(name:"My PNS", pnsBaseUrl:'http://localhost:8888/PhoneNetworkSimulator', phoneNumber:'000').save(failOnError:true, flush:true)
+		new PhoneNetworkSimulatorFconnection(name:"My PNS", pnsBaseUrl:'http://192.168.0.106:8888/PhoneNetworkSimulator', phoneNumber:'000').save(failOnError:true, flush:true)
 	}
 
 	def destroy = {

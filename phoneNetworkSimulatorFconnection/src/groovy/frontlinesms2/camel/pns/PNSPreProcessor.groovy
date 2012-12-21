@@ -17,6 +17,7 @@ class PNSPreProcessor implements Processor {
 		def d = x.in.body
 		log "sending message ${d.text}"
 		x.in.headers[Exchange.HTTP_PATH] = connection.pnsBaseUrl + "/modem/${connection.phoneNumber}/send/"
+		x.in.headers[Exchange.HTTP_URI] = connection.pnsBaseUrl + "/modem/${connection.phoneNumber}/send/"
 		x.in.headers[Exchange.HTTP_METHOD] = "POST"
 		x.in.headers['frontlinesms.dispatch.id'] = d.id
 		x.in.headers[Exchange.CONTENT_TYPE] = 'application/x-www-form-urlencoded'
