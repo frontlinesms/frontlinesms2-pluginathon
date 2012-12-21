@@ -12,14 +12,14 @@ import frontlinesms2.api.*
 class NexmoFconnection extends Fconnection implements FrontlineApi {
 	private static final String NEXMO_URL = 'http://rest.nexmo.com/sms/json?'
 	static final configFields = [ name:null, api_key:null, api_secret:null, fromNumber:null, receiveEnabled:null, sendEnabled:null ]
-	static final defaultValues = [ receiveEnabled:'true', sendEnabled:'true' ]
+	static final defaultValues = [ receiveEnabled:true, sendEnabled:true ]
 	static String getShortName() { 'nexmo' }
 	
 	String api_key
 	String api_secret
 	String fromNumber
-	boolean receiveEnabled
-	boolean sendEnabled
+	boolean receiveEnabled = true
+	boolean sendEnabled = true
 
 	static passwords = []
 	
