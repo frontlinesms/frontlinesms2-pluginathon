@@ -16,24 +16,22 @@ class NexmoService {
 			def payload = handleIncoming(connection, controller.params)
 			return [payload:payload]
 		} catch(FrontlineApiException ex) {
-// FIXME should send a non-200 status code here
 			return failure(ex)
 		}
 	}
 
 	private def handleIncoming(connection, params) {
-		//if(!connection.receiveEnabled) throw new FrontlineApiException("Receive not enabled for this connection")
-
-		//if(!params.from || params.message==null) throw new FrontlineApiException('Missing one or both of `from` and `message` parameters');
-
+		if(!connection.receiveEnabled) throw new FrontlineApiException("Receive not enabled for this connection")
+		if(!params.msisdn || params.text==null) throw new FrontlineApiException('Missing one or both of `msisdn` and `text` parameters')
 		/* parse received JSON with the following params:
+			msisdn : sender of incoming message
+			text : incoming message
 		     */
 		sendMessageAndHeaders('seda:incoming-fmessages-to-store',
 				new Fmessage(inbound:true, src:params.msisdn, text:params.text),
 				['fconnection-id':connection.id])
 
 		def response = success()
-		//if(connection.sendEnabled) response += generateOutgoingResponse(connection, false)
 		return response
 	}
 

@@ -11,13 +11,15 @@ import frontlinesms2.api.*
 @FrontlineApiAnnotations(apiUrl="nexmo")
 class NexmoFconnection extends Fconnection implements FrontlineApi {
 	private static final String NEXMO_URL = 'http://rest.nexmo.com/sms/json?'
-	static final configFields = [name:null, api_key:null, api_secret:null, fromNumber:null]
-	static final defaultValues = []
+	static final configFields = [ name:null, api_key:null, api_secret:null, fromNumber:null, receiveEnabled:null, sendEnabled:null ]
+	static final defaultValues = [ receiveEnabled:'true', sendEnabled:'true' ]
 	static String getShortName() { 'nexmo' }
 	
 	String api_key
 	String api_secret
 	String fromNumber
+	boolean receiveEnabled
+	boolean sendEnabled
 
 	static passwords = []
 	
@@ -35,7 +37,7 @@ class NexmoFconnection extends Fconnection implements FrontlineApi {
 	
 	String getSecret(){ return "" } // No Secret for Nexmo
 
-	boolean isApiEnabled() { true }
+	boolean isApiEnabled() { this.receivedEnabled }
 
 	String getFullApiUrl() {
 		return apiEnabled? "http://[your-ip-address]:${appSettingsService.serverPort}/frontlinesms-core/api/1/$apiUrl/$id/" : ""
