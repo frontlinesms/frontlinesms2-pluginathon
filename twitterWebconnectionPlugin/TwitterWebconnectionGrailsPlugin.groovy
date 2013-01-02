@@ -7,7 +7,7 @@ class TwitterWebconnectionGrailsPlugin {
     ]
     def title = "Twitter Webconnection"
     def author = "FrontlineSMS"
-    def authorEmail = ""
+    def authorEmail = "developers@frontlinesms.com"
     def description = "A Twitter Webconnection plugin fot FrontlineSMS. Forwards incoming messages to a twitter account feed"
     def documentation = "http://grails.org/plugin/test-plugin"
 }

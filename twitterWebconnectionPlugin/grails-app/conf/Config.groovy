@@ -91,3 +91,13 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+twitter {
+  disableTwitter4jController = true
+  'default' {
+    OAuthConsumerKey = "B1yaRzVCXDL8zRWu6GXg"
+    OAuthConsumerSecret = "faquiweicPvD3BymNzGLLAOWx7yXX85BCfIwPYgqjE"
+    OAuthAccessToken = "99170991-uT9lYg3Cp3ekco1gex7Mh8ifHA5lo7UWclCZS6v3F"
+    OAuthAccessTokenSecret = "ImQ0yEU1SXvT6CyAPuj9yI6TqwTBGLufZLKDMFzbGQ"
+  }
+}

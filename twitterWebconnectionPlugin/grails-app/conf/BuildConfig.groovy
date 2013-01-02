@@ -30,8 +30,8 @@ grails.project.dependency.resolution = {
 		grailsPlugins()
 
 		mavenLocal()
-		mavenRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
-		grailsRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
+		//mavenRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
+		//grailsRepo "http://192.168.0.200:8081/artifactory/simple/super-repo/"
 		mavenRepo 'http://dev.frontlinesms.com/m2repo/'
 		mavenCentral()
 
@@ -84,6 +84,7 @@ grails.project.dependency.resolution = {
 		runtime ":jquery:1.7.1"
 		runtime ':jquery-ui:1.8.15'
 		runtime ':resources:1.2.RC3'
+		compile ':plugins.twitter4j:0.3.2'
 
 		runtime ":export:1.1"
 		runtime ":markdown:1.0.0.RC1"
@@ -126,4 +127,3 @@ codenarc {
 		GrailsPublicControllerMethod.enabled = false
 	}
 }
-
