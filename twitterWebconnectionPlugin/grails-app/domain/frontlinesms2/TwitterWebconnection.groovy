@@ -13,6 +13,8 @@ class TwitterWebconnection extends Webconnection {
 	static constraints = {
 	}
 
+	def fTwitterService
+
 	def initialize(params) {
 		this.url = "http://www.twitter.com"
 		this.httpMethod = Webconnection.HttpMethod.POST
@@ -22,7 +24,7 @@ class TwitterWebconnection extends Webconnection {
 		consumerSecret = param.consumerSecret
 		accessToken = param.accessToken
 		accessTokenSecret = param.accessTokenSecret
-		
+
 		this.apiEnabled = false
 		this
 	}
@@ -32,13 +34,15 @@ class TwitterWebconnection extends Webconnection {
 	}
 
 	def getKey() {
-		requestParameters?.find {it.name == "key"}?.value
+		""
 	}
 
 	def processKeyword(Fmessage message, Keyword k) {
 		this.addToMessages(message)
 		this.save(failOnError:true)
-		//TODO twitter4j config
+		println "FTwitterService # ${fTwitterService}"
+		fTwitterService.connect(this)
+		fTwitterService.updateStatus(message.text)
 	}
 
 	def activate() {
