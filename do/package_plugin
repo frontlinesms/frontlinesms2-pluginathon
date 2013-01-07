@@ -3,7 +3,9 @@
 set -e
 
 # Assume this script is being run from the directory above this
-echo "# Packaging plugin..."
+PLUGIN_NAME=`grep 'app\.name' application.properties | cut -d= -f2`
+PLUGIN_VERSION=`grep 'app\.version' application.properties | cut -d= -f2`
+echo "# Packaging plugin $PLUGIN_NAME v$PLUGIN_VERSION..."
 grails dev war
 
 pushd ..
@@ -38,8 +40,46 @@ pushd ../temp
 mkdir my
 cd my
 unzip ../wars/*.war
-popd
-
 echo "# All wars exploded."
 
+echo "# Removing unwanted files from your plugin WAR..."
+rm WEB-INF/applicationContext.xml
+rm WEB-INF/web.xml
+rm -rf WEB-INF/templates
+rm -rf WEB-INF/tld
+cd ..
+echo "# Unwanted files removed."
 
+function check_for_unnecessaries {
+	CHECK_PATH=$1
+	CHECK_REF=$2
+	EMPTY_LIST=$CHECK_REF.empty.list
+	MY_LIST=$CHECK_REF.my.list
+	echo "# Checking for unnecessaries ($CHECK_REF) in: $CHECK_PATH..."
+	pushd empty
+	find $CHECK_PATH | sort >../$EMPTY_LIST
+	popd
+	pushd my
+	find $CHECK_PATH | sort >../$MY_LIST
+	popd
+	comm -12 $EMPTY_LIST $MY_LIST | tail -n +2 | while read f; do
+		rm -rf my/$f
+	done
+}
+check_for_unnecessaries plugins plugins
+check_for_unnecessaries WEB-INF/classes classes
+check_for_unnecessaries WEB-INF/lib lib
+check_for_unnecessaries WEB-INF/plugins plugin-resources
+echo "# Unnecessary files removed."
+
+echo "# Compressing FrontlineSMS plugin archive..."
+cd my
+ARCHIVE_NAME=$PLUGIN_NAME-$PLUGIN_VERSION.frontlinesms-plugin.zip
+zip -r $ARCHIVE_NAME .
+
+echo "# Returning to project directory..."
+popd
+
+echo "# Moving archive to target/..."
+mv ../temp/my/$ARCHIVE_NAME target/
+echo "# Plugin bundle creation complete.  Check target/$ARCHIVE_NAME."
