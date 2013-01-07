@@ -5,6 +5,10 @@ import twitter4j.TwitterFactory
 import twitter4j.conf.ConfigurationBuilder
 
 class FTwitterService extends Twitter4jService {
+    FTwitterService(){
+        super()
+    }
+    
 	def connect(twitterWebconnection) {
         def twitterConfiguration = getTwitterConfiguration(twitterWebconnection)
 
