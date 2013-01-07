@@ -8,6 +8,7 @@
     <resource>BootStrap</resource>
     <resource>spring.resources</resource>
     <resource>frontlinesms2.NexmoFconnection</resource>
+    <resource>frontlinesms2.NexmoService</resource>
   </resources>
   <repositories>
     <repository name='http://192.168.0.200:8081/artifactory/simple/super-repo/' url='http://192.168.0.200:8081/artifactory/simple/super-repo/' />
@@ -21,50 +22,50 @@
   </repositories>
   <dependencies>
     <test>
-      <dependency group='org.apache.camel' name='camel-test' version='2.9.4' />
-      <dependency group='org.seleniumhq.selenium' name='selenium-support' version='2.28.0' />
-      <dependency group='org.seleniumhq.selenium' name='selenium-remote-driver' version='2.28.0' />
       <dependency group='org.codehaus.geb' name='geb-spock' version='0.7.2' />
+      <dependency group='org.seleniumhq.selenium' name='selenium-remote-driver' version='2.28.0' />
       <dependency group='org.seleniumhq.selenium' name='selenium-firefox-driver' version='2.28.0' />
+      <dependency group='org.seleniumhq.selenium' name='selenium-support' version='2.28.0' />
+      <dependency group='org.apache.camel' name='camel-test' version='2.9.4' />
     </test>
     <compile>
-      <dependency group='net.frontlinesms.test' name='hayescommandset-test' version='0.0.4' />
       <dependency group='org.apache.camel' name='camel-mail' version='2.9.4' />
-      <dependency group='org.apache.camel' name='camel-http' version='2.9.4' />
       <dependency group='net.frontlinesms.core' name='serial' version='1.0.1' />
+      <dependency group='org.apache.camel' name='camel-http' version='2.9.4' />
       <dependency group='net.frontlinesms.core' name='camel-smslib' version='0.0.7' />
+      <dependency group='net.frontlinesms.test' name='hayescommandset-test' version='0.0.4' />
       <dependency group='net.frontlinesms.core' name='at-modem-detector' version='0.8' />
     </compile>
     <runtime>
-      <dependency group='javax.comm' name='comm' version='2.0.3' />
       <dependency group='org.rxtx' name='rxtx' version='2.1.7' />
+      <dependency group='javax.comm' name='comm' version='2.0.3' />
     </runtime>
   </dependencies>
   <plugins>
     <test>
-      <plugin group='org.grails.plugins' name='codenarc' version='0.17' />
-      <plugin group='org.grails.plugins' name='geb' version='0.7.2' />
-      <plugin group='org.grails.plugins' name='spock' version='0.6' />
       <plugin group='org.grails.plugins' name='build-test-data' version='2.0.2' />
       <plugin group='org.grails.plugins' name='remote-control' version='1.2' />
       <plugin group='org.grails.plugins' name='code-coverage' version='1.2.5' />
+      <plugin group='org.grails.plugins' name='geb' version='0.7.2' />
+      <plugin group='org.grails.plugins' name='codenarc' version='0.17' />
+      <plugin group='org.grails.plugins' name='spock' version='0.6' />
     </test>
     <compile>
-      <plugin group='org.grails.plugins' name='hibernate' version='2.0.3' />
-      <plugin group='org.grails.plugins' name='functional-test-development' version='0.9.3' />
-      <plugin group='org.grails.plugins' name='frontlinesms-core' version='2.0-SNAPSHOT' />
       <plugin group='org.grails.plugins' name='platform-core' version='1.0.RC2' />
+      <plugin group='org.grails.plugins' name='hibernate' version='2.0.3' />
       <plugin group='org.grails.plugins' name='quartz2' version='0.2.3-frontlinesms' />
+      <plugin group='org.grails.plugins' name='frontlinesms-core' version='2.0-SNAPSHOT' />
+      <plugin group='org.grails.plugins' name='functional-test-development' version='0.9.3' />
     </compile>
     <runtime>
-      <plugin group='org.grails.plugins' name='markdown' version='1.0.0.RC1' />
-      <plugin group='org.grails.plugins' name='jquery-ui' version='1.8.15' />
-      <plugin group='org.grails.plugins' name='database-migration' version='1.0' />
       <plugin group='org.grails.plugins' name='routing' version='1.2.2-camel-2.9.4' />
       <plugin group='org.grails.plugins' name='jquery' version='1.7.1' />
       <plugin group='org.grails.plugins' name='export' version='1.1' />
-      <plugin group='org.grails.plugins' name='resources' version='1.2.RC3' />
+      <plugin group='org.grails.plugins' name='jquery-ui' version='1.8.15' />
+      <plugin group='org.grails.plugins' name='markdown' version='1.0.0.RC1' />
+      <plugin group='org.grails.plugins' name='database-migration' version='1.0' />
       <plugin group='org.grails.plugins' name='csv' version='0.3.1' />
+      <plugin group='org.grails.plugins' name='resources' version='1.2.RC3' />
     </runtime>
   </plugins>
   <runtimePluginRequirements />

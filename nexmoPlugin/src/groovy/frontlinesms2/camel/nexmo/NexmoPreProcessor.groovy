@@ -5,7 +5,7 @@ import org.apache.camel.*
 import frontlinesms2.camel.exception.*
 
 class NexmoPreProcessor implements Processor {
-	public void process(Exchange exchange) throws Exception {
+	public void process(Exchange x) throws Exception {
 		def log = { println "NexmoPreProcessor.process() : $it" }
 		log 'ENTRY'
 		
