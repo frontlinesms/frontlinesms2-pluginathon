@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -e
+
+# Assume this script is being run from the directory above this
+echo "# Packaging plugin..."
+grails dev war
+
+pushd ..
+
+echo "# Checking if the empty plugin is already present..."
+if [ -d empty ]; then
+	echo "# Empty plugin already exists.  Assuming that it's ok..."
+else
+	do/new_plugin empty
+	pushd empty
+	grails dev war
+	popd
+fi
+
+echo "# Cleaning temp directory..."
+rm -rf temp || echo "# Temporary directory not present."
+echo "# Creating new temporary directory..."
+mkdir -p temp/empty
+pushd temp/empty
+echo "# Unzipping empty plugin to his temporary directory..."
+unzip ../../empty/target/empty-0.1.war
+echo "# Empty plugin unzipped."
+popd
+
+popd
+echo "# Copying plugin war to temp directory."
+mkdir ../temp/wars
+cp target/*.war ../temp/wars
+
+echo "# Expanding plugin WAR..."
+pushd ../temp
+mkdir my
+cd my
+unzip ../wars/*.war
+popd
+
+echo "# All wars exploded."
+
+
