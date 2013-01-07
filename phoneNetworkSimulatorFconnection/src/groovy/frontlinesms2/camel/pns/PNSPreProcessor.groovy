@@ -8,23 +8,23 @@ class PNSPreProcessor implements Processor {
 		def log = { println "PNSPreProcessor.process() : $it" }
 		log 'ENTRY'
 		
-		// URL-encode body
-		def d = x.in.body
-		x.out.headers['frontlinesms.dispatch.id'] = d.id
-		x.out.body = urlEncode(d.text)
-		
-		def destination = d.dst
-		if(destination && destination.charAt(0)=='+') destination = destination.substring(1)
-		set x, 'dst', destination
-		
-		// Add auth details to header
 		log "Calculating connection ID..."
 		def connectionId = x.fconnectionId
 		log "connectionId=$connectionId"
 		def connection = PhoneNetworkSimulatorFconnection.get(connectionId)
+
+		// URL-encode body
+		def d = x.in.body
+		log "sending message ${d.text}"
+		x.in.headers[Exchange.HTTP_PATH] = connection.pnsBaseUrl + "/modem/${connection.phoneNumber}/send/"
+		x.in.headers[Exchange.HTTP_URI] = connection.pnsBaseUrl + "/modem/${connection.phoneNumber}/send/"
+		x.in.headers[Exchange.HTTP_METHOD] = "POST"
+		x.in.headers['frontlinesms.dispatch.id'] = d.id
+		x.in.headers[Exchange.CONTENT_TYPE] = 'application/x-www-form-urlencoded'
+		x.in.body = "recipient=${urlEncode(d.dst)}&text=${urlEncode(d.text)}"
+				
 		log "connection=$connection"
-		['pnsBaseUrl', 'phoneNumber'].each { set x, it, connection."$it" }
-		log 'EXIT'
+		log "EXIT::: EXCHANGE IS ${x.in.headers}, especially the http path header, which is ${x.in.headers[Exchange.HTTP_PATH]}"
 	}
 	
 	private def set(Exchange x, String header, String value) {
