@@ -8,7 +8,8 @@ class BootStrap {
 		twitterWebconnection.save(failOnError:true)
 
 		println "## WEB_CONNECTION_TYPE_MAP #before# # ${WebconnectionController.WEB_CONNECTION_TYPE_MAP}"
-		WebconnectionController.metaClass.static.final.WEB_CONNECTION_TYPE_MAP['twitter'] = TwitterWebconnection
+		Webconnection.implementations << TwitterWebconnection
+		WebconnectionController.WEB_CONNECTION_TYPE_MAP.twitter = TwitterWebconnection
 		println "## WEB_CONNECTION_TYPE_MAP #after# # ${WebconnectionController.WEB_CONNECTION_TYPE_MAP}"
 
 		println "Twitter4jService #boot# ${org.twitter4j.grails.plugin.Twitter4jService}"
