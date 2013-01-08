@@ -28,6 +28,17 @@ echo "# inject required dependencies..."
 DEPENDENCIES="provided ':frontlinesms-core:2.0-SNAPSHOT'"
 sed -E -i -e "s_(^\s*mavenCentral\(\)\s*)\$_\1\n\t\tmavenRepo 'http://dev.frontlinesms.com/m2repo/'_" -e "s/(^\s*plugins\s*\{\s*$)/\1\n\t\t$DEPENDENCIES/" grails-app/conf/BuildConfig.groovy
 
+echo "# Generating good URL mappings..."
+cat > grails-app/conf/UrlMappings.groovy << EOF
+class UrlMappings {
+	static mappings = {
+		"/\$controller/\$action?/\$id?"()
+		"/"(controller:'message')
+		"500"(view:'/error')
+	}
+}
+EOF
+
 echo "# Inject max param into config..."
 echo "grails.views.pagination.max = 50" >> grails-app/conf/Config.groovy
 
