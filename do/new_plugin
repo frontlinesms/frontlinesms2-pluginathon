@@ -62,6 +62,9 @@ cat << EOF
 # Your FrontlineSMS2 Plugin $PLUGIN_NAME has been created.
 # To package the plugin:
 	cd $PLUGIN_NAME
-	grails package-plugin
+	../do/package-plugin
+# To run the plugin:
+	cd $PLUGIN_NAME
+	grails run-app
 EOF
 
